@@ -306,11 +306,15 @@ def extract_segment_job(
     multiprocess_enable = nerf and not force_single_process 
     try:
         if "cuda" in device:
-            # determine which cuda index from subprocess id
-            pname = multiprocessing.current_process().name
-            pid = int(pname.rsplit("-", 1)[-1]) - 1
-            cuda_id = pid % total_gpus
-            device = f"cuda:{cuda_id}"
+            if multiprocess_enable:
+                # determine which cuda index from subprocess id
+                pname = multiprocessing.current_process().name
+                pid = int(pname.rsplit("-", 1)[-1]) - 1
+                cuda_id = pid % total_gpus
+                device = f"cuda:{cuda_id}"
+            else:
+                device = "cuda:0"
+        print(device)
 
         if nerf: # single video
             raw_img_dir = video_name.replace(".mp4", "/gt_imgs/").replace("/raw/","/processed/")
@@ -484,6 +488,7 @@ if __name__ == '__main__':
     print(f"todo videos number: {len(vid_names)}")
 
     device = "cuda" if total_gpus > 0 else "cpu"
+    print(f"device: {device}")
     extract_job = extract_segment_job
     fn_args = [(vid_name, ds_name=='nerf', background_method, device, total_gpus, mix_bg, store_in_memory, force_single_process) for i, vid_name in enumerate(vid_names)]
         

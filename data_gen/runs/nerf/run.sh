@@ -21,9 +21,9 @@ echo Done
 
 # extract hubert_mel_f0 from audio
 echo python data_gen/utils/process_audio/extract_hubert.py --video_id=${VIDEO_ID}
-python data_gen/utils/process_audio/extract_hubert.py --video_id=${VIDEO_ID}
+python3.9 data_gen/utils/process_audio/extract_hubert.py --video_id=${VIDEO_ID}
 echo python data_gen/utils/process_audio/extract_mel_f0.py --video_id=${VIDEO_ID}
-python data_gen/utils/process_audio/extract_mel_f0.py --video_id=${VIDEO_ID}
+python3.9 data_gen/utils/process_audio/extract_mel_f0.py --video_id=${VIDEO_ID}
 echo Done
 
 # extract segment images
@@ -34,18 +34,18 @@ ffmpeg -i data/raw/videos/${VIDEO_ID}.mp4 -vf fps=25,scale=w=512:h=512 -qmin 1 -
 echo Done
 
 echo python data_gen/utils/process_video/extract_segment_imgs.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 # extract image, segmap, and background
-python data_gen/utils/process_video/extract_segment_imgs.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 # extract image, segmap, and background
+python3.9 data_gen/utils/process_video/extract_segment_imgs.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 --force_single_process --total_gpus=1 # extract image, segmap, and background
 echo Done
 
 echo python data_gen/utils/process_video/extract_lm2d.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4
-python data_gen/utils/process_video/extract_lm2d.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4
+python3.9 data_gen/utils/process_video/extract_lm2d.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4
 echo Done
 
 pkill -f void*
 echo python data_gen/utils/process_video/fit_3dmm_landmark.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 --reset --debug --id_mode=global
-python data_gen/utils/process_video/fit_3dmm_landmark.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 --reset --debug --id_mode=global
+python3.9 data_gen/utils/process_video/fit_3dmm_landmark.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 --reset --debug --id_mode=global
 echo Done
 
 echo python data_gen/runs/binarizer_nerf.py --video_id=${VIDEO_ID}
-python data_gen/runs/binarizer_nerf.py --video_id=${VIDEO_ID}
+python3.9 data_gen/runs/binarizer_nerf.py --video_id=${VIDEO_ID}
 echo Done

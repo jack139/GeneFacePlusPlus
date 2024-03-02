@@ -25,7 +25,7 @@ export VIDEO_ID=May
 export CUDA_VISIBLE_DEVICES=0
 mkdir -p data/processed/videos/${VIDEO_ID}/gt_imgs
 ffmpeg -i data/raw/videos/${VIDEO_ID}.mp4 -vf fps=25,scale=w=512:h=512 -qmin 1 -q:v 1 -start_number 0 data/processed/videos/${VIDEO_ID}/gt_imgs/%08d.jpg
-python data_gen/utils/process_video/extract_segment_imgs.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 # extract image, segmap, and background
+python data_gen/utils/process_video/extract_segment_imgs.py --ds_name=nerf --vid_dir=data/raw/videos/${VIDEO_ID}.mp4 --force_single_process --total_gpus=1 # extract image, segmap, and background
 ```
 
 # 步骤3. 提取lm2d_mediapipe
