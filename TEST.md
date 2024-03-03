@@ -35,11 +35,20 @@ CUDA_VISIBLE_DEVICES=0 PYTHONPATH=. bash data_gen/runs/nerf/run.sh News
 cp -r egs/datasets/May egs/datasets/News
 # 修改config里的`video: May` 为 `video: {Video_ID}`
 
+
+# 训练
+
 # 训练 Head NeRF 模型
 CUDA_VISIBLE_DEVICES=0 python3.9 tasks/run.py --config=egs/datasets/News/lm3d_radnerf_sr.yaml --exp_name=motion2video_nerf/News_head --reset
 
 # 训练 Torso NeRF 模型
-CUDA_VISIBLE_DEVICES=0 python3.9 tasks/run.py --config=egs/datasets/News/lm3d_radnerf_torso_sr.yaml --exp_name=motion2video_nerf/news_torso --hparams=head_model_dir=checkpoints/motion2video_nerf/News_head --reset
+CUDA_VISIBLE_DEVICES=0 python3.9 tasks/run.py --config=egs/datasets/News/lm3d_radnerf_torso_sr.yaml --exp_name=motion2video_nerf/News_torso --hparams=head_model_dir=checkpoints/motion2video_nerf/News_head --reset
+
+
+# 推理
+
+# --debug 选项可以可视化一些中间过程与特征
+CUDA_VISIBLE_DEVICES=0  python3.9 inference/genefacepp_infer.py --head_ckpt= --torso_ckpt=motion2video_nerf/News_torso --drv_aud=data/raw/val_wavs/MacronSpeech.wav --out_name=infer_outs/News_demo.mp4
 ```
 
 
@@ -47,6 +56,6 @@ CUDA_VISIBLE_DEVICES=0 python3.9 tasks/run.py --config=egs/datasets/News/lm3d_ra
 ### Pretrained models
 
 ```
-/home/tao/.cache/torch/hub/checkpoints/vgg19-dcbb9e9d.pth
-/home/tao/.cache/torch/hub/checkpoints/vgg_face_dag.pth
+~/.cache/torch/hub/checkpoints/vgg19-dcbb9e9d.pth
+~/.cache/torch/hub/checkpoints/vgg_face_dag.pth
 ```
