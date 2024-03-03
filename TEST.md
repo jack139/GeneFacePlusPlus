@@ -48,7 +48,7 @@ CUDA_VISIBLE_DEVICES=0 python3.9 tasks/run.py --config=egs/datasets/News/lm3d_ra
 # 推理
 
 # --debug 选项可以可视化一些中间过程与特征
-CUDA_VISIBLE_DEVICES=0  python3.9 inference/genefacepp_infer.py --head_ckpt= --torso_ckpt=motion2video_nerf/News_torso --drv_aud=data/raw/val_wavs/MacronSpeech.wav --out_name=infer_outs/News_demo.mp4
+CUDA_VISIBLE_DEVICES=0 python3.9 inference/genefacepp_infer.py --head_ckpt= --torso_ckpt=checkpoints/motion2video_nerf/News_torso --drv_aud=data/raw/val_wavs/MacronSpeech.wav --out_name=infer_outs/News_demo.mp4
 ```
 
 
