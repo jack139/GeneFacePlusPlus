@@ -11,7 +11,7 @@ torso_individual_embedding_dim: 8 # 0 leads to worse image fidelity
 smo_win_size: 3 # larger leads to oversmoothed lip
 
 num_ckpt_keep: 1
-lpips_mode: vgg19_v2 # alex | vgg19_v2 
+lpips_mode: alex # alex | vgg19_v2 
 lambda_lpips_loss: 0.001 # alex 0.001 | vgg19_v2 0.0001
 lambda_ambient: 1. 
 lambda_torso_deform: 0. # 1.0e-3 # L1 reg deformation torso, slight scale can improve stability
