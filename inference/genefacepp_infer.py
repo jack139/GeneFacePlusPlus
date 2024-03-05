@@ -14,6 +14,7 @@ import copy
 import cv2
 import uuid
 import traceback
+from datetime import datetime
 # common utils
 from utils.commons.hparams import hparams, set_hparams
 from utils.commons.tensor_utils import move_to_cuda, convert_to_np, convert_to_tensor
@@ -534,7 +535,10 @@ class GeneFace2Infer:
         inp = inp_tmp
 
         infer_instance = cls(inp['a2m_ckpt'], inp['postnet_ckpt'], inp['head_ckpt'], inp['torso_ckpt'])
+        start_time = datetime.now()
+        print('start tick ...', start_time)
         infer_instance.infer_once(inp)
+        print('timespan: ', '{!s}s'.format(datetime.now() - start_time))
 
     ##############
     # IO-related
