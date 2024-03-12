@@ -210,7 +210,7 @@ def load_processed_data(processed_dir):
     
     ret_dict = {}
 
-    ret_dict['bg_img'] = imageio.imread(background_img_name)
+    ret_dict['bg_img'] = imageio.v2.imread(background_img_name)
     ret_dict['H'], ret_dict['W'] = ret_dict['bg_img'].shape[:2]
     ret_dict['focal'], ret_dict['cx'], ret_dict['cy'] = face_model.focal, face_model.center, face_model.center
 
